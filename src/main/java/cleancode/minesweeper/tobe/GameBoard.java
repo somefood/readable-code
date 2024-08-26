@@ -23,13 +23,13 @@ public class GameBoard {
     }
 
     public void flag(int rowIndex, int colIndex) {
-        Cell cell = findCell(rowIndex, colIndex);
-        cell.flag();
+        Cell Cell = findCell(rowIndex, colIndex);
+        Cell.flag();
     }
 
     public void open(int rowIndex, int colIndex) {
-        Cell cell = findCell(rowIndex, colIndex);
-        cell.open();
+        Cell Cell = findCell(rowIndex, colIndex);
+        Cell.open();
     }
 
     public void openSurroundedCells(int row, int col) {
@@ -68,8 +68,8 @@ public class GameBoard {
     }
 
     public boolean isLandMineCell(int selectedRowIndex, int selectedColIndex) {
-        Cell cell = findCell(selectedRowIndex, selectedColIndex);
-        return cell.isLandMine();
+        Cell Cell = findCell(selectedRowIndex, selectedColIndex);
+        return Cell.isLandMine();
     }
 
     public boolean isAllCellChecked() {
@@ -109,8 +109,8 @@ public class GameBoard {
     }
 
     public String getSign(int rowIndex, int colIndex) {
-        Cell cell = findCell(rowIndex, colIndex);
-        return cell.getSign();
+        Cell Cell = findCell(rowIndex, colIndex);
+        return Cell.getSign();
     }
 
     private Cell findCell(int rowIndex, int colIndex) {
