@@ -3,6 +3,7 @@ package cleancode.studycafe.tobe.io;
 import cleancode.studycafe.tobe.model.StudyCafeLockerPass;
 import cleancode.studycafe.tobe.model.StudyCafePass;
 
+import cleancode.studycafe.tobe.model.StudyCafePassType;
 import java.util.List;
 
 public class OutputHandler {
@@ -42,13 +43,14 @@ public class OutputHandler {
         System.out.println("1. 예 | 2. 아니오");
     }
 
+    public void showPassOrderSummary(StudyCafePass selectedPass) {
+        showPassOrderSummary(selectedPass, null);
+    }
+
     public void showPassOrderSummary(StudyCafePass selectedPass, StudyCafeLockerPass lockerPass) {
         System.out.println();
         System.out.println("이용 내역");
         System.out.println("이용권: " + selectedPass.display());
-        if (lockerPass != null) {
-            System.out.println("사물함: " + lockerPass.display());
-        }
 
         double discountRate = selectedPass.getDiscountRate();
         int discountPrice = (int) (selectedPass.getPrice() * discountRate);
