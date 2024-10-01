@@ -1,4 +1,4 @@
-package cleancode.minesweeper.tobo2;
+package cleancode.minesweeper.tobe2;
 
 public class AppException extends RuntimeException {
 
