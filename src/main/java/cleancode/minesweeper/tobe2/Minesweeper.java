@@ -6,6 +6,7 @@ import cleancode.minesweeper.tobe2.gamelevel.GameLevel;
 import cleancode.minesweeper.tobe2.io.InputHandler;
 import cleancode.minesweeper.tobe2.io.OutputHandler;
 import cleancode.minesweeper.tobe2.position.CellPosition;
+import cleancode.minesweeper.tobe2.user.UserAction;
 
 public class Minesweeper implements GameInitializable, GameRunnable {
 
@@ -42,8 +43,8 @@ public class Minesweeper implements GameInitializable, GameRunnable {
                 }
 
                 final CellPosition cellPosition = getCellInputFromUser();
-                final String userActionInput = getUserActionInputFromUser();
-                actOnCell(cellPosition, userActionInput);
+                final UserAction userAction = getUserActionInputFromUser();
+                actOnCell(cellPosition, userAction);
             } catch (GameException e) {
                 outputHandler.showExceptionMessage(e);
             } catch (Exception e) {
@@ -52,14 +53,14 @@ public class Minesweeper implements GameInitializable, GameRunnable {
         }
     }
 
-    private void actOnCell(CellPosition cellPosition, String userActionInput) {
-        if (doesUserChooseToPlantFlag(userActionInput)) {
+    private void actOnCell(CellPosition cellPosition, UserAction userAction) {
+        if (doesUserChooseToPlantFlag(userAction)) {
             gameBoard.flagAt(cellPosition);
             checkIfGameIsOver();
             return;
         }
 
-        if (doesUserChooseToPlantOpenCell(userActionInput)) {
+        if (doesUserChooseToPlantOpenCell(userAction)) {
             if (gameBoard.isLandMineCellAt(cellPosition)) {
                 gameBoard.openAt(cellPosition);
                 changeGameStatusToLose();
@@ -77,17 +78,17 @@ public class Minesweeper implements GameInitializable, GameRunnable {
         gameStatus = -1;
     }
 
-    private boolean doesUserChooseToPlantOpenCell(String userActionInput) {
-        return userActionInput.equals("1");
+    private boolean doesUserChooseToPlantOpenCell(UserAction userAction) {
+        return userAction == UserAction.OPEN;
     }
 
-    private boolean doesUserChooseToPlantFlag(String userActionInput) {
-        return userActionInput.equals("2");
+    private boolean doesUserChooseToPlantFlag(UserAction userAction) {
+        return userAction == UserAction.FLAG;
     }
 
-    private String getUserActionInputFromUser() {
+    private UserAction getUserActionInputFromUser() {
         outputHandler.showCommentForUserAction();
-        return inputHandler.getUserInput();
+        return inputHandler.getUserActionFromUser();
     }
 
     private CellPosition getCellInputFromUser() {
