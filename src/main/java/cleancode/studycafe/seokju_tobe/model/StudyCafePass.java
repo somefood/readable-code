@@ -34,6 +34,10 @@ public class StudyCafePass {
         return discountRate;
     }
 
+    public boolean isEqualTo(StudyCafePassType passType) {
+        return this.passType == passType;
+    }
+
     public String display() {
         if (passType == StudyCafePassType.HOURLY) {
             return String.format("%s시간권 - %d원", duration, price);

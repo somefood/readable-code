@@ -1,6 +1,7 @@
 package cleancode.studycafe.seokju_tobe.io;
 
 import cleancode.studycafe.seokju_tobe.model.StudyCafeLockerPass;
+import cleancode.studycafe.seokju_tobe.model.StudyCafeLockerPasses;
 import cleancode.studycafe.seokju_tobe.model.StudyCafePass;
 import cleancode.studycafe.seokju_tobe.model.StudyCafePassType;
 import cleancode.studycafe.seokju_tobe.model.StudyCafePasses;
@@ -33,7 +34,7 @@ public class StudyCafeFileHandler {
         }
     }
 
-    public List<StudyCafeLockerPass> readLockerPasses() {
+    public StudyCafeLockerPasses readLockerPasses() {
         try {
             List<String> lines = Files.readAllLines(Paths.get("src/main/resources/cleancode/studycafe/locker.csv"));
             List<StudyCafeLockerPass> lockerPasses = new ArrayList<>();
@@ -47,7 +48,7 @@ public class StudyCafeFileHandler {
                 lockerPasses.add(lockerPass);
             }
 
-            return lockerPasses;
+            return StudyCafeLockerPasses.of(lockerPasses);
         } catch (IOException e) {
             throw new RuntimeException("파일을 읽는데 실패했습니다.", e);
         }

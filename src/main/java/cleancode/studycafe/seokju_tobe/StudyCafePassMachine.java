@@ -5,10 +5,10 @@ import cleancode.studycafe.seokju_tobe.io.InputHandler;
 import cleancode.studycafe.seokju_tobe.io.OutputHandler;
 import cleancode.studycafe.seokju_tobe.io.StudyCafeFileHandler;
 import cleancode.studycafe.seokju_tobe.model.StudyCafeLockerPass;
+import cleancode.studycafe.seokju_tobe.model.StudyCafeLockerPasses;
 import cleancode.studycafe.seokju_tobe.model.StudyCafePass;
 import cleancode.studycafe.seokju_tobe.model.StudyCafePassType;
 import cleancode.studycafe.seokju_tobe.model.StudyCafePasses;
-import java.util.List;
 
 public class StudyCafePassMachine {
 
@@ -28,12 +28,12 @@ public class StudyCafePassMachine {
             outputHandler.showAnnouncement();
 
             outputHandler.askPassTypeSelection();
-            StudyCafePassType studyCafePassType = inputHandler.getPassTypeSelectingUserAction();
+            final StudyCafePassType studyCafePassType = inputHandler.getPassTypeSelectingUserAction();
 
             final StudyCafePass selectedPass = findSelectedPass(studyCafePassType);
 
-            List<StudyCafeLockerPass> lockerPasses = STUDY_CAFE_FILE_HANDLER.readLockerPasses();
-            final StudyCafeLockerPass lockerPass = getStudyCafeLockerPass(lockerPasses, selectedPass);
+            final StudyCafeLockerPasses lockerPasses = STUDY_CAFE_FILE_HANDLER.readLockerPasses();
+            final StudyCafeLockerPass lockerPass = lockerPasses.getStudyCafeLockerPass(selectedPass);
 
             boolean lockerSelection = false;
             if (canUseLocker(lockerPass)) {
@@ -63,16 +63,4 @@ public class StudyCafePassMachine {
         outputHandler.showPassListForSelection(findPasses);
         return inputHandler.getSelectPass(findPasses);
     }
-
-    private StudyCafeLockerPass getStudyCafeLockerPass(List<StudyCafeLockerPass> lockerPasses,
-                                                       StudyCafePass selectedPass) {
-        return lockerPasses.stream()
-            .filter(option ->
-                        option.getPassType() == selectedPass.getPassType()
-                            && option.getDuration() == selectedPass.getDuration()
-            )
-            .findFirst()
-            .orElse(StudyCafeLockerPass.NONE);
-    }
-
 }
