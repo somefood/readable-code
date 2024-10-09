@@ -2,6 +2,8 @@ package cleancode.studycafe.seokju_tobe.model;
 
 public class StudyCafeLockerPass {
 
+    public static final StudyCafeLockerPass NONE = StudyCafeLockerPass.of(StudyCafePassType.NONE, 0, 0);
+
     private final StudyCafePassType passType;
     private final int duration;
     private final int price;
