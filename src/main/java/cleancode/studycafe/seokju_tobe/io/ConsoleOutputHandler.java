@@ -3,7 +3,6 @@ package cleancode.studycafe.seokju_tobe.io;
 import cleancode.studycafe.seokju_tobe.model.StudyCafeLockerPass;
 import cleancode.studycafe.seokju_tobe.model.StudyCafePass;
 import cleancode.studycafe.seokju_tobe.model.StudyCafePasses;
-import java.util.List;
 
 public class ConsoleOutputHandler implements OutputHandler {
 
@@ -52,7 +51,7 @@ public class ConsoleOutputHandler implements OutputHandler {
         System.out.println();
         System.out.println("이용 내역");
         System.out.println("이용권: " + selectedPass.display());
-        if (lockerPass != null) {
+        if (lockerPass.canUse()) {
             System.out.println("사물함: " + lockerPass.display());
         }
 
@@ -62,7 +61,7 @@ public class ConsoleOutputHandler implements OutputHandler {
             System.out.println("이벤트 할인 금액: " + discountPrice + "원");
         }
 
-        int totalPrice = selectedPass.getPrice() - discountPrice + (lockerPass != null ? lockerPass.getPrice() : 0);
+        int totalPrice = selectedPass.getPrice() - discountPrice + (lockerPass.canUse() ? lockerPass.getPrice() : 0);
         System.out.println("총 결제 금액: " + totalPrice + "원");
         System.out.println();
     }
