@@ -7,6 +7,7 @@ import cleancode.studycafe.seokju_tobe.io.StudyCafeFileHandler;
 import cleancode.studycafe.seokju_tobe.model.StudyCafeLockerPass;
 import cleancode.studycafe.seokju_tobe.model.StudyCafePass;
 import cleancode.studycafe.seokju_tobe.model.StudyCafePassType;
+import cleancode.studycafe.seokju_tobe.model.StudyCafePasses;
 import java.util.List;
 
 public class StudyCafePassMachine {
@@ -35,7 +36,7 @@ public class StudyCafePassMachine {
             final StudyCafeLockerPass lockerPass = getStudyCafeLockerPass(lockerPasses, selectedPass);
 
             boolean lockerSelection = false;
-            if (lockerPass != StudyCafeLockerPass.NONE) {
+            if (canUseLocker(lockerPass)) {
                 outputHandler.askLockerPass(lockerPass);
                 lockerSelection = inputHandler.getLockerSelection();
             }
@@ -52,13 +53,15 @@ public class StudyCafePassMachine {
         }
     }
 
+    private boolean canUseLocker(StudyCafeLockerPass lockerPass) {
+        return lockerPass != StudyCafeLockerPass.NONE;
+    }
+
     private StudyCafePass findSelectedPass(StudyCafePassType passType) {
-        List<StudyCafePass> studyCafePasses = STUDY_CAFE_FILE_HANDLER.readStudyCafePasses();
-        List<StudyCafePass> hourlyPasses = studyCafePasses.stream()
-            .filter(studyCafePass -> studyCafePass.getPassType() == passType)
-            .toList();
-        outputHandler.showPassListForSelection(hourlyPasses);
-        return inputHandler.getSelectPass(hourlyPasses);
+        StudyCafePasses studyCafePasses = STUDY_CAFE_FILE_HANDLER.readStudyCafePasses();
+        final StudyCafePasses findPasses = studyCafePasses.findBy(passType);
+        outputHandler.showPassListForSelection(findPasses);
+        return inputHandler.getSelectPass(findPasses);
     }
 
     private StudyCafeLockerPass getStudyCafeLockerPass(List<StudyCafeLockerPass> lockerPasses,
