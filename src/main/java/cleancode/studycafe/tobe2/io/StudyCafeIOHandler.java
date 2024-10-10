@@ -1,5 +1,6 @@
 package cleancode.studycafe.tobe2.io;
 
+import cleancode.studycafe.tobe2.model.order.StudyCafePassOrder;
 import cleancode.studycafe.tobe2.model.pass.locker.StudyCafeLockerPass;
 import cleancode.studycafe.tobe2.model.pass.StudyCafeSeatPass;
 import cleancode.studycafe.tobe2.model.pass.StudyCafePassType;
@@ -19,12 +20,9 @@ public class StudyCafeIOHandler {
         outputHandler.showAnnouncement();
     }
 
-    public void showPassOrderSummary(StudyCafeSeatPass selectedPass, StudyCafeLockerPass lockerPass) {
-        outputHandler.showPassOrderSummary(selectedPass, lockerPass);
-    }
 
-    public void showPassOrderSummary(StudyCafeSeatPass selectedPass) {
-        outputHandler.showPassOrderSummary(selectedPass, null);
+    public void showPassOrderSummary(StudyCafePassOrder passOrder) {
+        outputHandler.showPassOrderSummary(passOrder);
     }
 
     public void showSimpleMessage(String message) {
