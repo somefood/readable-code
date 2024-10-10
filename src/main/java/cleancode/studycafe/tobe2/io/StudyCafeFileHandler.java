@@ -1,7 +1,10 @@
 package cleancode.studycafe.tobe2.io;
 
-import cleancode.studycafe.tobe2.model.*;
-
+import cleancode.studycafe.tobe2.model.pass.locker.StudyCafeLockerPass;
+import cleancode.studycafe.tobe2.model.pass.locker.StudyCafeLockerPasses;
+import cleancode.studycafe.tobe2.model.pass.StudyCafePassType;
+import cleancode.studycafe.tobe2.model.pass.StudyCafeSeatPass;
+import cleancode.studycafe.tobe2.model.pass.StudyCafeSeatPasses;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
